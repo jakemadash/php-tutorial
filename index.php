@@ -6,10 +6,13 @@ $config = require('config.php');
 
 $db = new Database($config['database']);
 
-$posts = $db->query('SELECT * from posts')->fetchAll();;
+$id = $_GET['id'];
+$query = 'SELECT * from posts where id = :id';
 
-foreach ($posts as $post) {
-    echo $post['title'];
-}
+$post = $db->query($query, ['id' => $id])->fetch();
+
+
+echo $post['title'];
+
 
 require('router.php');
